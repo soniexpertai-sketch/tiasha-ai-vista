@@ -1,19 +1,29 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { ArrowRight, CalendarCheck, CheckCircle2, Loader2, PhoneCall } from "lucide-react";
 import Reveal from "./ui/Reveal";
 import { CONTACT, INDUSTRIES } from "@/lib/data";
+import { trackClarityEvent } from "@/lib/clarity";
 
 export default function CTABanner() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const started = useRef(false);
+
+  // Funnel step: first interaction with any form field.
+  const handleFormStart = () => {
+    if (started.current) return;
+    started.current = true;
+    trackClarityEvent("lead_form_start");
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setSubmitting(true);
+    trackClarityEvent("lead_form_submit");
 
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
@@ -26,7 +36,9 @@ export default function CTABanner() {
       });
       if (!res.ok) throw new Error();
       setSubmitted(true);
+      trackClarityEvent("lead_form_success");
     } catch {
+      trackClarityEvent("lead_form_error");
       setError("Something went wrong sending your request. Please try again, or WhatsApp us directly.");
     } finally {
       setSubmitting(false);
@@ -68,6 +80,7 @@ export default function CTABanner() {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <a
                 href={CONTACT.whatsappHref}
+                onClick={() => trackClarityEvent("cta_whatsapp_click")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-semibold text-forest-deep shadow-[0_8px_24px_rgba(212,175,55,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white"
@@ -77,6 +90,7 @@ export default function CTABanner() {
               </a>
               <a
                 href={CONTACT.phoneHref}
+                onClick={() => trackClarityEvent("cta_phone_click")}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:text-gold"
               >
                 <PhoneCall className="h-4 w-4" />
@@ -98,7 +112,7 @@ export default function CTABanner() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} aria-label="Book a free AI consultation">
+              <form onSubmit={handleSubmit} onFocus={handleFormStart} aria-label="Book a free AI consultation">
                 <h3 className="font-display text-xl font-bold text-white">Book Your Free Consultation</h3>
                 <p className="mt-1.5 text-sm text-white/60">Takes 30 seconds. No spam, ever.</p>
                 <div className="mt-6 space-y-4">
