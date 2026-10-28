@@ -1,33 +1,38 @@
 import SectionHeading from "./ui/SectionHeading";
+import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
 import { PROCESS_STEPS } from "@/lib/data";
 
 export default function Process() {
   return (
-    <section id="process" className="py-20 md:py-28" aria-labelledby="process-heading">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="process" className="py-16 md:py-24" aria-labelledby="process-heading">
+      <Container>
         <SectionHeading
-          eyebrow="Why Choose Tiasha"
-          title="A Proven Path from Idea to Impact"
-          subtitle="No black boxes, no endless projects. A disciplined eight-step journey with a working prototype in the first days."
+          id="process-heading"
+          eyebrow="Working with us"
+          title="From first call to live in about a month"
+          subtitle="You'll know the cost and what it should save before we start building."
         />
-        <ol className="relative grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4" role="list">
-          {PROCESS_STEPS.map((step, i) => (
-            <Reveal as="li" key={step.title} delay={(i % 4) * 90} className="relative">
-              <div className="group h-full rounded-card border border-line bg-surface p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover">
-                <div className="mb-4 flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-gold font-display text-sm font-extrabold text-forest transition-colors group-hover:bg-gold group-hover:text-forest-deep dark:text-gold dark:group-hover:text-forest-deep">
+        <Reveal>
+          <ol className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+            {PROCESS_STEPS.map((step, i) => (
+              <li key={step.title} className="relative lg:pr-8">
+                <div className="mb-5 flex items-center gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-primary font-display text-[15px] font-bold text-primary">
                     {i + 1}
                   </span>
-                  <span aria-hidden="true" className="h-px flex-1 bg-gradient-to-r from-gold/60 to-transparent" />
+                  {i < PROCESS_STEPS.length - 1 && (
+                    <span aria-hidden="true" className="hidden h-0.5 flex-1 bg-line lg:block" />
+                  )}
                 </div>
-                <h3 className="font-display text-base font-bold text-body">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{step.body}</p>
-              </div>
-            </Reveal>
-          ))}
-        </ol>
-      </div>
+                <p className="text-[13px] font-semibold uppercase tracking-[0.1em] text-accent">{step.when}</p>
+                <h3 className="mt-1 font-display text-lg font-bold leading-7 text-ink">{step.title}</h3>
+                <p className="mt-2 text-[15px] leading-6 text-muted">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+      </Container>
     </section>
   );
 }

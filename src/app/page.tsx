@@ -1,19 +1,13 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import TrustBar from "@/components/TrustBar";
 import Problems from "@/components/Problems";
-import SolutionWorkflow from "@/components/SolutionWorkflow";
 import Solutions from "@/components/Solutions";
+import SolutionWorkflow from "@/components/SolutionWorkflow";
+import CaseStudies from "@/components/CaseStudies";
 import Industries from "@/components/Industries";
 import Process from "@/components/Process";
-import DemoShowcase from "@/components/DemoShowcase";
-import Metrics from "@/components/Metrics";
-import TechStack from "@/components/TechStack";
-import Testimonials from "@/components/Testimonials";
-import CaseStudies from "@/components/CaseStudies";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
-import BlogPreview from "@/components/BlogPreview";
 import CTABanner from "@/components/CTABanner";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
@@ -39,20 +33,14 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <TrustBar />
         <Problems />
-        <SolutionWorkflow />
         <Solutions />
+        <SolutionWorkflow />
+        <CaseStudies />
         <Industries />
         <Process />
-        <DemoShowcase />
-        <Metrics />
-        <TechStack />
-        <Testimonials />
-        <CaseStudies />
         <Pricing />
         <FAQ />
-        <BlogPreview />
         <CTABanner />
       </main>
       <Footer />

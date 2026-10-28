@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useState, type FormEvent } from "react";
-import { ArrowRight, CalendarCheck, CheckCircle2, Loader2, PhoneCall } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2, Mail, MessageCircle, PhoneCall } from "lucide-react";
 import Reveal from "./ui/Reveal";
+import Container from "./ui/Container";
 import { CONTACT, INDUSTRIES } from "@/lib/data";
 import { trackClarityEvent } from "@/lib/clarity";
 
@@ -46,94 +47,91 @@ export default function CTABanner() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-forest py-20 md:py-28" aria-labelledby="cta-heading">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-24 top-0 h-96 w-96 rounded-full bg-emerald/25 blur-3xl" />
-        <div className="absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-gold/15 blur-3xl" />
-      </div>
-
-      <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+    <section id="contact" className="bg-navy py-16 text-white md:py-24 dark:border-y dark:border-line dark:bg-subtle" aria-labelledby="cta-heading">
+      <Container className="grid gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal>
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              Get Started
-            </p>
-            <h2 id="cta-heading" className="font-display text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl lg:text-[2.75rem]">
-              Ready to Automate Your Business?
-            </h2>
-            <p className="mt-5 max-w-md text-lg leading-relaxed text-white/70">
-              Book a free 30-minute consultation. We&apos;ll map your workflows, show you live demos,
-              and leave you with an automation plan — whether you work with us or not.
-            </p>
-            <ul className="mt-8 space-y-3 text-sm text-white/85">
-              {[
-                "Free workflow audit — no obligations",
-                "Live demos relevant to your industry",
-                "Clear ROI estimate before you spend a rupee",
-              ].map((point) => (
-                <li key={point} className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 shrink-0 text-gold" aria-hidden="true" />
-                  {point}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+          <p className="eyebrow mb-3 !text-cyan">Book a call</p>
+          <h2 id="cta-heading" className="font-display text-[32px] font-extrabold leading-10 md:text-[40px] md:leading-[48px]">
+            Tell us what&apos;s eating up your team&apos;s day.
+          </h2>
+          <p className="mt-5 max-w-md text-[17px] leading-7 text-[#c5d4e6]">
+            In 30 minutes we&apos;ll look at one workflow with you and tell you plainly whether automating it is worth
+            the money. If it isn&apos;t, we&apos;ll say so.
+          </p>
+          <ul className="mt-8 space-y-3 text-[15px] text-[#dbe6f3]">
+            {[
+              "Free, no obligation",
+              "Demos for your industry, on the call",
+              "A written estimate within a week",
+            ].map((point) => (
+              <li key={point} className="flex items-center gap-3">
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-cyan" strokeWidth={1.75} aria-hidden="true" />
+                {point}
+              </li>
+            ))}
+          </ul>
+
+          <ul className="mt-10 space-y-3 border-t border-white/15 pt-8 text-[15px]">
+            <li>
               <a
                 href={CONTACT.whatsappHref}
                 onClick={() => trackClarityEvent("cta_whatsapp_click")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-semibold text-forest-deep shadow-[0_8px_24px_rgba(212,175,55,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white"
+                className="inline-flex items-center gap-3 font-semibold text-white hover:text-cyan"
               >
-                <CalendarCheck className="h-4 w-4" />
-                Schedule a Free Demo
+                <MessageCircle className="h-5 w-5 text-cyan" strokeWidth={1.75} aria-hidden="true" />
+                WhatsApp us
               </a>
+            </li>
+            <li>
               <a
                 href={CONTACT.phoneHref}
                 onClick={() => trackClarityEvent("cta_phone_click")}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:text-gold"
+                className="inline-flex items-center gap-3 font-semibold text-white hover:text-cyan"
               >
-                <PhoneCall className="h-4 w-4" />
+                <PhoneCall className="h-5 w-5 text-cyan" strokeWidth={1.75} aria-hidden="true" />
                 {CONTACT.phone}
               </a>
-            </div>
-          </div>
+            </li>
+            <li>
+              <a href={CONTACT.emailHref} className="inline-flex items-center gap-3 font-semibold text-white hover:text-cyan">
+                <Mail className="h-5 w-5 text-cyan" strokeWidth={1.75} aria-hidden="true" />
+                {CONTACT.email}
+              </a>
+            </li>
+          </ul>
+          <p className="mt-8 text-[15px] italic text-[#c5d4e6]">
+            We read every message ourselves. No bots on this form.
+            <span className="mt-1 block text-[14px] not-italic">The Tiasha AI Vista team, {CONTACT.city}</span>
+          </p>
         </Reveal>
 
-        <Reveal delay={150}>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-8 backdrop-blur-sm">
+        <Reveal delay={120}>
+          <div className="rounded-lg bg-surface p-6 text-ink shadow-card sm:p-8">
             {submitted ? (
               <div className="flex min-h-[380px] flex-col items-center justify-center text-center">
-                <CheckCircle2 className="mb-4 h-14 w-14 text-gold" aria-hidden="true" />
-                <h3 className="font-display text-2xl font-bold text-white">Thank you!</h3>
-                <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/70">
-                  We&apos;ve received your request. Our team will reach out within one business day to
-                  schedule your free consultation.
+                <CheckCircle2 className="mb-4 h-12 w-12 text-success" strokeWidth={1.75} aria-hidden="true" />
+                <h3 className="font-display text-[22px] font-bold">Thanks, we&apos;ve got it.</h3>
+                <p className="mt-3 max-w-xs text-[15px] leading-6 text-muted">
+                  One of us will get back to you within one working day to fix a time for the call.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} onFocus={handleFormStart} aria-label="Book a free AI consultation">
-                <h3 className="font-display text-xl font-bold text-white">Book Your Free Consultation</h3>
-                <p className="mt-1.5 text-sm text-white/60">Takes 30 seconds. No spam, ever.</p>
+              <form onSubmit={handleSubmit} onFocus={handleFormStart} aria-label="Book a free consultation">
+                <h3 className="font-display text-[22px] font-bold leading-[30px]">Book your free call</h3>
+                <p className="mt-1 text-[14px] text-muted">Takes about a minute. We won&apos;t add you to any list.</p>
                 <div className="mt-6 space-y-4">
                   <div>
-                    <label htmlFor="lead-name" className="mb-1.5 block text-xs font-semibold text-white/80">
-                      Full name
+                    <label htmlFor="lead-name" className="mb-1.5 block text-[14px] font-semibold text-ink">
+                      Your name
                     </label>
-                    <input
-                      id="lead-name"
-                      name="name"
-                      type="text"
-                      required
-                      autoComplete="name"
-                      placeholder="Your name"
-                      className="w-full rounded-lg border border-white/15 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none"
-                    />
+                    <input id="lead-name" name="name" type="text" required autoComplete="name" className="w-full rounded-sm border border-line-strong bg-surface px-3.5 py-3 text-[15px] text-ink placeholder:text-muted/70 focus:border-primary focus:outline-none" />
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <label htmlFor="lead-email" className="mb-1.5 block text-xs font-semibold text-white/80">
-                        Work email
+                      <label htmlFor="lead-email" className="mb-1.5 block text-[14px] font-semibold text-ink">
+                        Email
                       </label>
                       <input
                         id="lead-email"
@@ -142,35 +140,23 @@ export default function CTABanner() {
                         required
                         autoComplete="email"
                         placeholder="you@company.com"
-                        className="w-full rounded-lg border border-white/15 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none"
+                        className="w-full rounded-sm border border-line-strong bg-surface px-3.5 py-3 text-[15px] text-ink placeholder:text-muted/70 focus:border-primary focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label htmlFor="lead-phone" className="mb-1.5 block text-xs font-semibold text-white/80">
+                      <label htmlFor="lead-phone" className="mb-1.5 block text-[14px] font-semibold text-ink">
                         Phone / WhatsApp
                       </label>
-                      <input
-                        id="lead-phone"
-                        name="phone"
-                        type="tel"
-                        autoComplete="tel"
-                        placeholder="+91 …"
-                        className="w-full rounded-lg border border-white/15 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none"
-                      />
+                      <input id="lead-phone" name="phone" type="tel" autoComplete="tel" placeholder="+91" className="w-full rounded-sm border border-line-strong bg-surface px-3.5 py-3 text-[15px] text-ink placeholder:text-muted/70 focus:border-primary focus:outline-none" />
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="lead-industry" className="mb-1.5 block text-xs font-semibold text-white/80">
+                    <label htmlFor="lead-industry" className="mb-1.5 block text-[14px] font-semibold text-ink">
                       Industry
                     </label>
-                    <select
-                      id="lead-industry"
-                      name="industry"
-                      className="w-full rounded-lg border border-white/15 bg-white/10 px-4 py-3 text-sm text-white focus:border-gold focus:outline-none [&>option]:text-forest-deep"
-                      defaultValue=""
-                    >
+                    <select id="lead-industry" name="industry" className="w-full rounded-sm border border-line-strong bg-surface px-3.5 py-3 text-[15px] text-ink placeholder:text-muted/70 focus:border-primary focus:outline-none" defaultValue="">
                       <option value="" disabled>
-                        Select your industry
+                        Choose one
                       </option>
                       {INDUSTRIES.map((ind) => (
                         <option key={ind.name} value={ind.name}>
@@ -181,48 +167,46 @@ export default function CTABanner() {
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="lead-message" className="mb-1.5 block text-xs font-semibold text-white/80">
-                      What would you like to automate? <span className="font-normal text-white/50">(optional)</span>
+                    <label htmlFor="lead-message" className="mb-1.5 block text-[14px] font-semibold text-ink">
+                      What would you like to automate? <span className="font-normal text-muted">(optional)</span>
                     </label>
                     <textarea
                       id="lead-message"
                       name="message"
                       rows={3}
-                      placeholder="e.g. We miss WhatsApp enquiries at night…"
-                      className="w-full resize-none rounded-lg border border-white/15 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none"
+                      placeholder="e.g. We miss WhatsApp enquiries after 8 pm"
+                      className="w-full rounded-sm border border-line-strong bg-surface px-3.5 py-3 text-[15px] text-ink placeholder:text-muted/70 focus:border-primary focus:outline-none resize-none"
                     />
                   </div>
                   {error && (
-                    <p role="alert" className="text-sm text-gold">
+                    <p role="alert" className="text-[14px] text-danger">
                       {error}
                     </p>
                   )}
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-semibold text-forest-deep shadow-[0_8px_24px_rgba(212,175,55,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+                    className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-display text-[15px] font-semibold text-on-primary transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {submitting ? (
                       <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
                         Sending…
                       </>
                     ) : (
                       <>
-                        Book Free AI Consultation
-                        <ArrowRight className="h-4 w-4" />
+                        Send request
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
                       </>
                     )}
                   </button>
-                  <p className="text-center text-[11px] text-white/45">
-                    By submitting, you agree to be contacted about your enquiry. We respect your privacy.
-                  </p>
+                  <p className="text-center text-[13px] text-muted">We only use your details to reply to this enquiry.</p>
                 </div>
               </form>
             )}
           </div>
         </Reveal>
-      </div>
+      </Container>
     </section>
   );
 }

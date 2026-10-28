@@ -1,5 +1,7 @@
-import Image from "next/image";
-import { Mail, PhoneCall } from "lucide-react";
+import { Mail, MapPin, PhoneCall } from "lucide-react";
+import { Wordmark } from "./Navbar";
+import Container from "./ui/Container";
+import { CONTACT, NAV_LINKS } from "@/lib/data";
 
 function LinkedinIcon({ className }: { className?: string }) {
   return (
@@ -8,76 +10,44 @@ function LinkedinIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-import { CONTACT, SOLUTIONS, INDUSTRIES } from "@/lib/data";
 
-const FOOTER_SERVICES = SOLUTIONS.slice(0, 6).map((s) => s.title);
-const FOOTER_INDUSTRIES = INDUSTRIES.slice(0, 6).map((i) => i.name);
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07z" />
+    </svg>
+  );
+}
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const linkCls = "inline-flex items-center gap-2.5 text-muted transition-colors hover:text-ink";
   return (
-    <footer className="border-t border-line bg-surface" aria-labelledby="footer-heading">
+    <footer className="border-t border-line bg-bg" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-5">
-          <div className="lg:col-span-2">
-            <Image
-              src="/logo.png"
-              alt="Tiasha AI Vista logo"
-              width={180}
-              height={65}
-              className="h-14 w-auto rounded-md dark:bg-cream/95 dark:p-1.5"
-            />
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted">
-              <span className="font-semibold text-gold">Your Vista to AI-Driven Growth.</span>{" "}
-              Practical AI solutions that save time, reduce costs, and accelerate your business.
+      <Container className="py-14">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+          <div>
+            <Wordmark />
+            <p className="mt-5 max-w-xs text-[14px] leading-[22px] text-muted">
+              AI assistants and automations for small and mid-sized businesses. Built and supported from Pune.
             </p>
-            <ul className="mt-6 space-y-2.5 text-sm" role="list">
-              <li>
-                <a href={CONTACT.phoneHref} className="inline-flex items-center gap-2.5 text-muted transition-colors hover:text-emerald">
-                  <PhoneCall className="h-4 w-4" aria-hidden="true" /> {CONTACT.phone}
-                </a>
-              </li>
-              <li>
-                <a href={CONTACT.emailHref} className="inline-flex items-center gap-2.5 text-muted transition-colors hover:text-emerald">
-                  <Mail className="h-4 w-4" aria-hidden="true" /> {CONTACT.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={CONTACT.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 text-muted transition-colors hover:text-emerald"
-                >
-                  <LinkedinIcon className="h-4 w-4" /> LinkedIn
-                </a>
-              </li>
-            </ul>
+            <p className="eyebrow mt-5 flex items-center gap-2 !text-[11px] text-muted">
+              Automate <span className="h-1 w-1 rounded-full bg-teal" aria-hidden="true" />
+              Innovate <span className="h-1 w-1 rounded-full bg-teal" aria-hidden="true" />
+              Grow
+            </p>
           </div>
 
-          <nav aria-label="Services">
-            <p className="font-display text-sm font-bold text-body">Services</p>
-            <ul className="mt-4 space-y-2.5" role="list">
-              {FOOTER_SERVICES.map((s) => (
-                <li key={s}>
-                  <a href="#solutions" className="text-sm text-muted transition-colors hover:text-emerald">
-                    {s}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <nav aria-label="Industries">
-            <p className="font-display text-sm font-bold text-body">Industries</p>
-            <ul className="mt-4 space-y-2.5" role="list">
-              {FOOTER_INDUSTRIES.map((i) => (
-                <li key={i}>
-                  <a href="#industries" className="text-sm text-muted transition-colors hover:text-emerald">
-                    {i}
+          <nav aria-label="Footer">
+            <p className="font-display text-[14px] font-bold text-ink">On this page</p>
+            <ul className="mt-4 space-y-2 text-[14px]">
+              {NAV_LINKS.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className={linkCls}>
+                    {l.label}
                   </a>
                 </li>
               ))}
@@ -85,54 +55,40 @@ export default function Footer() {
           </nav>
 
           <div>
-            <p className="font-display text-sm font-bold text-body">Company</p>
-            <ul className="mt-4 space-y-2.5" role="list">
-              {[
-                { label: "Blog", href: "#blog" },
-                { label: "Case Studies", href: "#case-studies" },
-                { label: "Pricing", href: "#pricing" },
-                { label: "Privacy Policy", href: "#" },
-                { label: "Terms of Service", href: "#" },
-              ].map((l) => (
-                <li key={l.label}>
-                  <a href={l.href} className="text-sm text-muted transition-colors hover:text-emerald">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
+            <p className="font-display text-[14px] font-bold text-ink">Contact</p>
+            <ul className="mt-4 space-y-2.5 text-[14px]">
+              <li>
+                <a href={CONTACT.phoneHref} className={linkCls}>
+                  <PhoneCall className="h-4 w-4" aria-hidden="true" /> {CONTACT.phone}
+                </a>
+              </li>
+              <li>
+                <a href={CONTACT.emailHref} className={linkCls}>
+                  <Mail className="h-4 w-4" aria-hidden="true" /> {CONTACT.email}
+                </a>
+              </li>
+              <li>
+                <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className={linkCls}>
+                  <LinkedinIcon className="h-4 w-4" /> LinkedIn
+                </a>
+              </li>
+              <li>
+                <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer" className={linkCls}>
+                  <FacebookIcon className="h-4 w-4" /> Facebook
+                </a>
+              </li>
+              <li className="inline-flex items-center gap-2.5 text-muted">
+                <MapPin className="h-4 w-4" aria-hidden="true" /> {CONTACT.city}
+              </li>
             </ul>
-            <form className="mt-6" aria-label="Newsletter signup">
-              <label htmlFor="newsletter-email" className="mb-2 block text-xs font-semibold text-muted">
-                Get AI automation insights monthly
-              </label>
-              <div className="flex gap-2">
-                <input
-                  id="newsletter-email"
-                  type="email"
-                  required
-                  placeholder="Email address"
-                  className="w-full min-w-0 rounded-lg border border-line bg-bg px-3.5 py-2.5 text-sm text-body placeholder:text-muted/60 focus:border-emerald focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  className="shrink-0 rounded-lg bg-forest px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gold hover:text-forest-deep"
-                >
-                  Join
-                </button>
-              </div>
-            </form>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-line pt-8 sm:flex-row">
-          <p className="text-xs text-muted">
-            © {year} Tiasha AI Vista. All rights reserved.
-          </p>
-          <p className="text-xs text-muted">
-            Technology names are trademarks of their respective owners; shown as tools we work with, not partnerships.
-          </p>
+        <div className="mt-12 flex flex-col justify-between gap-3 border-t border-line pt-6 text-[13px] text-muted sm:flex-row">
+          <p>© {year} Tiasha AI Vista</p>
+          <p>Product names belong to their owners. We use these tools; we&apos;re not their partners.</p>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

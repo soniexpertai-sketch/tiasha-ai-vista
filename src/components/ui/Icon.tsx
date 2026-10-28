@@ -1,18 +1,6 @@
-import {
-  Bot, MessageCircle, Mic, TrendingUp, Database, Filter, FileText, ScanText,
-  Mail, Users, Landmark, Receipt, BookOpen, Sparkles, Plug, Repeat, UserX,
-  Timer, FileStack, TrendingDown, EyeOff, UserPlus, BrainCircuit, Workflow,
-  BarChart3, Building2, HeartPulse, GraduationCap, ShoppingBag, Factory,
-  HardHat, Truck, Briefcase, type LucideIcon,
-} from "lucide-react";
+import { MessageCircle, Mic, ScanText, Workflow, Sparkles, type LucideIcon } from "lucide-react";
 
-const ICONS: Record<string, LucideIcon> = {
-  Bot, MessageCircle, Mic, TrendingUp, Database, Filter, FileText, ScanText,
-  Mail, Users, Landmark, Receipt, BookOpen, Sparkles, Plug, Repeat, UserX,
-  Timer, FileStack, TrendingDown, EyeOff, UserPlus, BrainCircuit, Workflow,
-  BarChart3, Building2, HeartPulse, GraduationCap, ShoppingBag, Factory,
-  HardHat, Truck, Briefcase,
-};
+const ICONS: Record<string, LucideIcon> = { MessageCircle, Mic, ScanText, Workflow, Sparkles };
 
 export default function Icon({
   name,

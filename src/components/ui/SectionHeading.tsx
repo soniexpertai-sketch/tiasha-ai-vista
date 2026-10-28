@@ -1,42 +1,30 @@
 import Reveal from "./Reveal";
 
 type SectionHeadingProps = {
+  id?: string;
   eyebrow: string;
   title: string;
   subtitle?: string;
-  align?: "center" | "left";
-  dark?: boolean;
+  align?: "left" | "center";
 };
 
 export default function SectionHeading({
+  id,
   eyebrow,
   title,
   subtitle,
-  align = "center",
-  dark = false,
+  align = "left",
 }: SectionHeadingProps) {
-  const alignCls = align === "center" ? "text-center mx-auto" : "text-left";
   return (
-    <Reveal className={`max-w-3xl ${alignCls} mb-12 md:mb-16`}>
-      <p
-        className={`text-xs font-semibold uppercase tracking-[0.2em] mb-4 ${
-          dark ? "text-gold" : "text-emerald"
-        }`}
-      >
-        {eyebrow}
-      </p>
+    <Reveal className={`mb-12 max-w-2xl ${align === "center" ? "mx-auto text-center" : ""}`}>
+      <p className="eyebrow mb-3">{eyebrow}</p>
       <h2
-        className={`font-display text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-[1.15] tracking-tight ${
-          dark ? "text-white" : "text-body"
-        }`}
+        id={id}
+        className="font-display text-[28px] font-bold leading-9 text-ink md:text-[32px] md:leading-10"
       >
         {title}
       </h2>
-      {subtitle && (
-        <p className={`mt-5 text-base md:text-lg leading-relaxed ${dark ? "text-white/70" : "text-muted"}`}>
-          {subtitle}
-        </p>
-      )}
+      {subtitle && <p className="mt-4 text-[17px] leading-7 text-muted md:text-lg">{subtitle}</p>}
     </Reveal>
   );
 }

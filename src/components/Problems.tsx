@@ -1,31 +1,32 @@
 import SectionHeading from "./ui/SectionHeading";
+import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
-import Icon from "./ui/Icon";
 import { PROBLEMS } from "@/lib/data";
 
 export default function Problems() {
   return (
-    <section className="py-20 md:py-28" aria-labelledby="problems-heading">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="bg-subtle py-16 md:py-24" aria-labelledby="problems-heading">
+      <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <SectionHeading
-          eyebrow="The Problem"
-          title="Why Businesses Struggle"
-          subtitle="Growth stalls when your best people spend their days on work a machine should do."
+          id="problems-heading"
+          eyebrow="What we fix"
+          title="Sound familiar?"
+          subtitle="Most of the businesses we talk to aren't short of customers. They're short of hours."
         />
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" role="list">
-          {PROBLEMS.map((p, i) => (
-            <Reveal as="li" key={p.title} delay={i * 70}>
-              <div className="group h-full rounded-card border border-line bg-surface p-7 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover">
-                <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gold-soft text-forest transition-colors group-hover:bg-gold group-hover:text-forest-deep dark:text-gold dark:group-hover:text-forest-deep">
-                  <Icon name={p.icon} />
-                </span>
-                <h3 className="font-display text-lg font-bold text-body">{p.title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted">{p.body}</p>
-              </div>
-            </Reveal>
-          ))}
-        </ul>
-      </div>
+        <Reveal>
+          <ol className="divide-y divide-line border-y border-line">
+            {PROBLEMS.map((p, i) => (
+              <li key={p.title} className="grid gap-2 py-6 sm:grid-cols-[3rem_1fr]">
+                <span className="font-display text-sm font-bold text-accent">0{i + 1}</span>
+                <div>
+                  <h3 className="font-display text-lg font-bold leading-7 text-ink">{p.title}</h3>
+                  <p className="mt-1.5 text-muted">{p.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+      </Container>
     </section>
   );
 }

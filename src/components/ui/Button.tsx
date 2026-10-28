@@ -3,43 +3,35 @@ import type { ReactNode } from "react";
 type ButtonProps = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "outline" | "gold" | "ghost-dark";
-  size?: "md" | "lg";
+  variant?: "primary" | "secondary" | "on-navy";
   className?: string;
   external?: boolean;
+  onClick?: () => void;
 };
 
+// Mirrors .tav-btn from the design system: 10px radius, 44px min height, Montserrat 600.
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 whitespace-nowrap";
-
-const sizes = {
-  md: "px-6 py-3 text-sm",
-  lg: "px-8 py-4 text-base",
-};
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-md border-2 px-6 py-3 font-display text-[15px] font-semibold leading-5 tracking-[0.01em] transition-colors whitespace-nowrap";
 
 const variants = {
-  primary:
-    "bg-forest text-white hover:bg-gold hover:text-forest-deep shadow-[0_8px_24px_rgba(15,59,46,0.25)] hover:shadow-[0_8px_28px_rgba(212,175,55,0.35)] hover:-translate-y-0.5",
-  outline:
-    "border border-line-strong text-body hover:border-gold hover:text-body hover:bg-gold-soft hover:-translate-y-0.5",
-  gold:
-    "bg-gold text-forest-deep hover:bg-white hover:text-forest-deep shadow-[0_8px_24px_rgba(212,175,55,0.3)] hover:-translate-y-0.5",
-  "ghost-dark":
-    "border border-white/25 text-white hover:border-gold hover:text-gold hover:-translate-y-0.5",
+  primary: "border-transparent bg-primary text-on-primary hover:bg-primary-hover",
+  secondary: "border-line-strong bg-transparent text-ink hover:border-ink hover:bg-subtle",
+  "on-navy": "border-transparent bg-cyan text-navy hover:bg-white",
 };
 
 export default function Button({
   href,
   children,
   variant = "primary",
-  size = "md",
   className = "",
   external = false,
+  onClick,
 }: ButtonProps) {
   return (
     <a
       href={href}
-      className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}
+      onClick={onClick}
+      className={`${base} ${variants[variant]} ${className}`}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       {children}

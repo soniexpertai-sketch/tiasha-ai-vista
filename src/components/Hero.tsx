@@ -1,192 +1,110 @@
-import { ArrowRight, PhoneCall, ShieldCheck, Clock, IndianRupee, Headset, Zap } from "lucide-react";
+import { ArrowRight, CheckCheck, MapPin } from "lucide-react";
 import Button from "./ui/Button";
-import Reveal from "./ui/Reveal";
-import { HERO_STATS } from "@/lib/data";
+import Container from "./ui/Container";
+import HeroScene from "./HeroScene";
 
-const STAT_ICONS = [Clock, IndianRupee, Headset, Zap];
+type Msg = { from: "them" | "us"; text: string; time: string };
 
-function DashboardIllustration() {
+const CHAT: Msg[] = [
+  { from: "them", text: "Hi, saw the 2BHK in Baner on 99acres. Still available? What's the price?", time: "10:42 pm" },
+  {
+    from: "us",
+    text: "Hi Neha, yes, two units are open on the 6th and 9th floor. ₹1.18 Cr and ₹1.24 Cr, all-inclusive. Would you like to see them this weekend?",
+    time: "10:42 pm",
+  },
+  { from: "them", text: "Sunday morning works", time: "10:44 pm" },
+  {
+    from: "us",
+    text: "Booked: Sunday, 11:00 am with Rohan from our sales team. Location pin below. Reply here if anything changes.",
+    time: "10:45 pm",
+  },
+];
+
+function ChatScreen() {
   return (
-    <div className="relative" aria-hidden="true">
-      {/* Glow */}
-      <div className="absolute -inset-8 rounded-[40px] bg-gradient-to-tr from-emerald/20 via-gold/10 to-transparent blur-2xl" />
-
-      <div className="relative rounded-2xl border border-line bg-surface p-4 shadow-card-hover sm:p-5">
-        {/* Window chrome */}
-        <div className="mb-4 flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-gold/70" />
-          <span className="h-2.5 w-2.5 rounded-full bg-emerald/50" />
-          <span className="h-2.5 w-2.5 rounded-full bg-forest/30" />
-          <span className="ml-3 h-2 w-24 rounded-full bg-surface-2" />
+    <figure className="mx-auto w-full max-w-[400px]" aria-label="Example WhatsApp conversation handled by an assistant">
+      <div className="overflow-hidden rounded-[18px] border border-line bg-surface shadow-card">
+        <div className="flex items-center gap-3 border-b border-line px-4 py-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-subtle font-display text-sm font-bold text-ink">
+            BP
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[15px] font-semibold leading-5 text-ink">Sales desk · Baner project</p>
+            <p className="text-xs leading-4 text-muted">Example conversation</p>
+          </div>
         </div>
 
-        <svg viewBox="0 0 520 340" className="w-full" role="img">
-          {/* KPI tiles */}
-          {[0, 1, 2].map((i) => (
-            <g key={i} transform={`translate(${16 + i * 168}, 16)`}>
-              <rect width="152" height="72" rx="10" fill="var(--surface-2)" />
-              <rect x="14" y="14" width="52" height="8" rx="4" fill="var(--border-strong)" />
-              <text x="14" y="54" fontSize="24" fontWeight="700" fill="var(--forest)" className="dark:[fill:var(--gold)]">
-                {["₹4.2L", "1,284", "96%"][i]}
-              </text>
-              <path d="M110 48 l10 -10 l8 6 l14 -16" stroke="var(--gold)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-            </g>
+        <div className="flex flex-col gap-2 bg-subtle px-3 py-4 text-[14px] leading-[21px]">
+          <p className="mx-auto mb-1 rounded-md bg-surface px-2.5 py-0.5 text-[11px] font-medium text-muted">Today</p>
+          {CHAT.map((m, i) => (
+            <div
+              key={i}
+              className={`max-w-[84%] rounded-lg px-3 pb-1.5 pt-2 ${
+                m.from === "us"
+                  ? "self-end rounded-tr-none bg-[#dcebfb] text-ink dark:bg-[#123b72]"
+                  : "self-start rounded-tl-none bg-surface text-ink"
+              }`}
+            >
+              <p>{m.text}</p>
+              <p className="mt-0.5 flex items-center justify-end gap-1 text-[11px] text-muted">
+                {m.time}
+                {m.from === "us" && <CheckCheck className="h-3.5 w-3.5 text-primary" aria-label="Read" />}
+              </p>
+            </div>
           ))}
-
-          {/* Chart card */}
-          <g transform="translate(16, 104)">
-            <rect width="320" height="150" rx="10" fill="var(--surface-2)" />
-            <rect x="16" y="14" width="80" height="8" rx="4" fill="var(--border-strong)" />
-            {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
-              const heights = [38, 56, 44, 72, 60, 88, 76, 104];
-              return (
-                <rect
-                  key={i}
-                  x={20 + i * 37}
-                  y={134 - heights[i]}
-                  width="20"
-                  height={heights[i]}
-                  rx="4"
-                  fill={i === 7 ? "var(--gold)" : "var(--emerald)"}
-                  opacity={i === 7 ? 1 : 0.35 + i * 0.08}
-                  className="animate-grow-bar"
-                  style={{ animationDelay: `${i * 90}ms` }}
-                />
-              );
-            })}
-          </g>
-
-          {/* AI workflow panel */}
-          <g transform="translate(352, 104)">
-            <rect width="152" height="150" rx="10" fill="var(--forest)" />
-            <text x="16" y="28" fontSize="11" fontWeight="600" fill="#d4af37" letterSpacing="1.5">
-              AI WORKFLOW
-            </text>
-            {/* nodes */}
-            {[
-              { cx: 30, cy: 56 }, { cx: 76, cy: 48 }, { cx: 122, cy: 62 },
-              { cx: 46, cy: 96 }, { cx: 98, cy: 104 }, { cx: 128, cy: 128 }, { cx: 28, cy: 128 },
-            ].map((n, i) => (
-              <circle
-                key={i}
-                cx={n.cx}
-                cy={n.cy}
-                r="4.5"
-                fill="#d4af37"
-                className="animate-pulse-dot"
-                style={{ animationDelay: `${i * 300}ms` }}
-              />
-            ))}
-            <g stroke="rgba(212,175,55,0.45)" strokeWidth="1.25" fill="none">
-              <path d="M30 56 L76 48 L122 62" className="animate-dash" />
-              <path d="M76 48 L46 96 L98 104" className="animate-dash" style={{ animationDelay: "400ms" }} />
-              <path d="M98 104 L128 128 M46 96 L28 128" className="animate-dash" style={{ animationDelay: "800ms" }} />
-            </g>
-          </g>
-
-          {/* Activity rows */}
-          <g transform="translate(16, 268)">
-            <rect width="488" height="56" rx="10" fill="var(--surface-2)" />
-            {[0, 1, 2].map((i) => (
-              <g key={i} transform={`translate(${16 + i * 160}, 16)`}>
-                <circle cx="12" cy="12" r="12" fill="var(--emerald)" opacity="0.2" />
-                <circle cx="12" cy="12" r="5" fill="var(--emerald)" className="animate-pulse-dot" style={{ animationDelay: `${i * 500}ms` }} />
-                <rect x="32" y="4" width="86" height="7" rx="3.5" fill="var(--border-strong)" />
-                <rect x="32" y="16" width="56" height="6" rx="3" fill="var(--border)" />
-              </g>
-            ))}
-          </g>
-        </svg>
-      </div>
-
-      {/* Floating stat chips */}
-      {HERO_STATS.map((stat, i) => {
-        const Icon = STAT_ICONS[i];
-        const positions = [
-          "-left-4 top-6 sm:-left-10",
-          "-right-3 top-24 sm:-right-8",
-          "-left-3 bottom-24 sm:-left-8",
-          "-right-4 -bottom-4 sm:-right-6",
-        ];
-        return (
-          <div
-            key={stat.label}
-            className={`animate-float absolute ${positions[i]} flex items-center gap-2.5 rounded-xl border border-line bg-surface px-3.5 py-2.5 shadow-card`}
-            style={{ animationDelay: `${i * 1.4}s` }}
-          >
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-soft text-emerald">
-              <Icon className="h-4 w-4" strokeWidth={2} />
-            </span>
-            <span>
-              <span className="block font-display text-sm font-extrabold leading-none text-body">{stat.value}</span>
-              <span className="mt-1 block text-[11px] font-medium leading-none text-muted">{stat.label}</span>
-            </span>
+          <div className="flex items-center gap-2 self-end rounded-lg rounded-tr-none bg-[#dcebfb] px-3 py-2 text-[13px] text-ink dark:bg-[#123b72]">
+            <MapPin className="h-4 w-4 text-primary" aria-hidden="true" />
+            Sample flat, Baner Road
           </div>
-        );
-      })}
-    </div>
+        </div>
+      </div>
+      <figcaption className="mt-3 px-1 text-[13px] leading-5 text-[#c5d4e6]">
+        A typical late-night enquiry. The visit lands in the agent&apos;s calendar and the CRM; nobody had to be awake.
+      </figcaption>
+    </figure>
   );
 }
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pb-20 pt-32 md:pb-28 md:pt-40">
-      {/* Ambient background */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full bg-emerald/10 blur-3xl" />
-        <div className="absolute bottom-[-20%] left-[-10%] h-[420px] w-[420px] rounded-full bg-gold/10 blur-3xl" />
+    <section id="top" className="relative isolate overflow-hidden bg-navy pb-20 pt-16 text-white md:pb-32 md:pt-24">
+      <div className="absolute inset-0 -z-10" aria-hidden="true">
+        <HeroScene />
+        {/* keeps the copy readable over the moving field */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,28,63,0.9)_0%,rgba(1,28,63,0.55)_45%,rgba(1,28,63,0.15)_100%)] lg:bg-[linear-gradient(90deg,rgba(1,28,63,0.92)_0%,rgba(1,28,63,0.7)_38%,rgba(1,28,63,0)_70%)]" />
       </div>
-
-      <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:gap-12 lg:px-8">
+      <Container className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div>
-          <Reveal>
-            <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-xs font-semibold text-emerald shadow-sm">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              Trusted AI automation partner for growing businesses
-            </p>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="font-display text-4xl font-extrabold leading-[1.08] tracking-tight text-body sm:text-5xl lg:text-[3.5rem]">
-              Transform Your Business with{" "}
-              <span className="relative whitespace-nowrap text-emerald">
-                Intelligent AI
-                <svg aria-hidden="true" viewBox="0 0 200 9" className="absolute -bottom-1.5 left-0 w-full" preserveAspectRatio="none">
-                  <path d="M1 7 Q100 -3 199 6" stroke="var(--gold)" strokeWidth="3" fill="none" strokeLinecap="round" />
-                </svg>
-              </span>{" "}
-              Automation
-            </h1>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              We build AI-powered workflows, chatbots, AI agents, voice assistants, and business
-              automations that save time, reduce costs, and increase revenue.
-            </p>
-          </Reveal>
-          <Reveal delay={240}>
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <Button href="#contact" size="lg">
-                Book Free AI Consultation
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-              <Button href="#demo" variant="outline" size="lg">
-                <PhoneCall className="h-4 w-4" />
-                Watch Demo
-              </Button>
-            </div>
-          </Reveal>
-          <Reveal delay={320}>
-            <p className="mt-8 text-sm text-muted">
-              <span className="font-semibold text-body">Trusted by businesses</span>{" "}
-              across real estate, healthcare, manufacturing, retail &amp; finance.
-            </p>
-          </Reveal>
+          <p className="eyebrow mb-6 flex flex-wrap items-center gap-2 !text-white">
+            Automate <span className="h-1.5 w-1.5 rounded-full bg-teal" aria-hidden="true" />
+            Innovate <span className="h-1.5 w-1.5 rounded-full bg-teal" aria-hidden="true" />
+            Grow
+          </p>
+          <h1 className="font-display text-[40px] font-extrabold leading-[46px] tracking-[-0.01em] text-white md:text-[56px] md:leading-[60px]">
+            Every enquiry answered, even at 11&nbsp;pm.
+          </h1>
+          <p className="mt-6 max-w-[34rem] text-[19px] leading-[30px] text-[#c5d4e6]">
+            We set up WhatsApp and voice assistants, and the back-office automations behind them, for small and
+            mid-sized businesses. Your leads get a reply in a minute. Your team stops copying data between apps.
+          </p>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Button href="#contact">
+              Book a free 30-min call
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Button>
+            <Button href="#how-it-works" variant="secondary" className="!border-white/40 !text-white hover:!border-white hover:!bg-white/10">
+              See how it works
+            </Button>
+          </div>
+          <p className="mt-8 text-sm leading-[22px] text-[#a9bdd6]">
+            Based in Pune. Working with SMEs across India. We reply within one working day.
+          </p>
         </div>
 
-        <Reveal delay={200} className="px-6 sm:px-8 lg:px-0">
-          <DashboardIllustration />
-        </Reveal>
-      </div>
+        <div>
+          <ChatScreen />
+        </div>
+      </Container>
     </section>
   );
 }

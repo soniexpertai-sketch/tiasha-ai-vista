@@ -1,70 +1,90 @@
 import SectionHeading from "./ui/SectionHeading";
+import Container from "./ui/Container";
 import Reveal from "./ui/Reveal";
-import Icon from "./ui/Icon";
-import { WORKFLOW_STEPS } from "@/lib/data";
+import { WALKTHROUGH } from "@/lib/data";
+
+const LEADS = [
+  { name: "Neha K.", source: "99acres", need: "2BHK · ₹1.2 Cr", status: "Visit Sun 11 am", tone: "success" },
+  { name: "Amit P.", source: "WhatsApp", need: "3BHK · ₹1.8 Cr", status: "Callback 10 am", tone: "warning" },
+  { name: "Sana M.", source: "Website", need: "2BHK · rent", status: "Not a fit", tone: "muted" },
+] as const;
+
+const toneCls = {
+  success: "text-success",
+  warning: "text-warning",
+  muted: "text-muted",
+};
+
+function LeadBoard() {
+  return (
+    <figure aria-label="Example morning view of leads handled overnight">
+      <div className="overflow-hidden rounded-lg border border-line bg-surface shadow-card">
+        <div className="flex items-center justify-between border-b border-line px-5 py-3.5">
+          <p className="font-display text-[15px] font-bold text-ink">Overnight leads</p>
+          <p className="text-[13px] text-muted">Mon, 9:00 am</p>
+        </div>
+        <table className="w-full text-left text-[14px] leading-5">
+          <thead className="text-[12px] uppercase tracking-wider text-muted">
+            <tr className="border-b border-line">
+              <th scope="col" className="px-5 py-2.5 font-semibold">Lead</th>
+              <th scope="col" className="hidden px-3 py-2.5 font-semibold sm:table-cell">Looking for</th>
+              <th scope="col" className="px-5 py-2.5 text-right font-semibold">Next step</th>
+            </tr>
+          </thead>
+          <tbody>
+            {LEADS.map((l) => (
+              <tr key={l.name} className="border-b border-line last:border-0">
+                <td className="px-5 py-3">
+                  <span className="block font-semibold text-ink">{l.name}</span>
+                  <span className="text-[12px] text-muted">{l.source}</span>
+                </td>
+                <td className="hidden px-3 py-3 text-ink sm:table-cell">{l.need}</td>
+                <td className={`px-5 py-3 text-right font-semibold ${toneCls[l.tone]}`}>{l.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <figcaption className="mt-3 text-[13px] leading-5 text-muted">
+        What the sales team sees in the morning. Example data.
+      </figcaption>
+    </figure>
+  );
+}
 
 export default function SolutionWorkflow() {
   return (
-    <section className="relative overflow-hidden bg-forest py-20 md:py-28" aria-labelledby="workflow-heading">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, #d4af37 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="how-it-works" className="bg-subtle py-16 md:py-24" aria-labelledby="how-heading">
+      <Container>
         <SectionHeading
-          dark
-          eyebrow="The Solution"
-          title="How Tiasha AI Vista Solves It"
-          subtitle="One connected pipeline — from the first enquiry to the final report — running itself, end to end."
+          id="how-heading"
+          eyebrow="How it works"
+          title="One lead, from first message to booked visit"
+          subtitle="Here's what a WhatsApp enquiry desk does for a real estate team on a normal weeknight."
         />
-
-        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6" role="list">
-          {WORKFLOW_STEPS.map((step, i) => (
-            <Reveal as="li" key={step.title} delay={i * 90} className="relative">
-              <div className="group h-full rounded-card border border-white/10 bg-white/[0.06] p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 hover:bg-white/[0.1]">
-                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gold/15 text-gold transition-colors group-hover:bg-gold group-hover:text-forest-deep">
-                  <Icon name={step.icon} className="h-5 w-5" />
-                </span>
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-gold/80">
-                  Step {i + 1}
-                </p>
-                <h3 className="mt-1 font-display text-base font-bold text-white">{step.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-white/60">{step.body}</p>
-              </div>
-              {i < WORKFLOW_STEPS.length - 1 && (
-                <svg
-                  aria-hidden="true"
-                  className="absolute -right-4 top-1/2 hidden h-4 w-4 -translate-y-1/2 text-gold/60 lg:block"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path d="M2 8h10m0 0L8 4m4 4l-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              )}
-            </Reveal>
-          ))}
-        </ol>
-
-        <Reveal delay={500} className="mt-12">
-          <svg viewBox="0 0 1200 40" className="hidden w-full lg:block" aria-hidden="true">
-            <path
-              d="M20 20 H1180"
-              stroke="rgba(212,175,55,0.35)"
-              strokeWidth="1.5"
-              className="animate-dash"
-              fill="none"
-            />
-            {[20, 252, 484, 716, 948, 1180].map((x, i) => (
-              <circle key={x} cx={x} cy="20" r="5" fill="#d4af37" className="animate-pulse-dot" style={{ animationDelay: `${i * 250}ms` }} />
-            ))}
-          </svg>
-        </Reveal>
-      </div>
+        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+          <Reveal>
+            <ol className="relative border-l-2 border-line pl-7">
+              {WALKTHROUGH.map((step, i) => (
+                <li key={step.title} className="relative pb-8 last:pb-0">
+                  <span
+                    aria-hidden="true"
+                    className={`absolute -left-[37px] top-1.5 h-4 w-4 rounded-full border-2 ${
+                      i === WALKTHROUGH.length - 1 ? "border-primary bg-primary" : "border-primary bg-subtle"
+                    }`}
+                  />
+                  <p className="text-[13px] font-semibold text-accent">{step.time}</p>
+                  <h3 className="mt-0.5 font-display text-lg font-bold leading-7 text-ink">{step.title}</h3>
+                  <p className="mt-1 text-muted">{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+          <Reveal delay={120} className="lg:pt-6">
+            <LeadBoard />
+          </Reveal>
+        </div>
+      </Container>
     </section>
   );
 }

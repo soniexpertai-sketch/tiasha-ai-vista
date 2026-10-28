@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Montserrat, DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Clarity from "@/components/Clarity";
+import { CONTACT } from "@/lib/data";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
   display: "swap",
 });
 
@@ -21,11 +24,11 @@ const siteUrl = "https://www.tiashaaivista.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Tiasha AI Vista — AI Automation Solutions for Business Growth",
+    default: "Tiasha AI Vista — AI automation for Indian SMEs, Pune",
     template: "%s | Tiasha AI Vista",
   },
   description:
-    "Tiasha AI Vista builds AI-powered workflows, chatbots, AI agents, voice assistants, and business automations that save time, reduce costs, and increase revenue. Your Vista to AI-Driven Growth.",
+    "We build WhatsApp assistants, voice agents and back-office automations for small and mid-sized businesses. Every enquiry answered, every invoice entered, without adding headcount. Based in Pune.",
   keywords: [
     "AI automation",
     "AI agents",
@@ -42,14 +45,14 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Tiasha AI Vista",
-    title: "Tiasha AI Vista — AI Automation Solutions for Business Growth",
+    title: "Tiasha AI Vista — AI automation for Indian SMEs",
     description:
-      "Practical AI solutions that save time, reduce costs, and accelerate your business growth. Book a free AI consultation.",
+      "WhatsApp assistants, voice agents and back-office automations for SMEs. Book a free 30-minute call.",
     images: [{ url: "/logo.png", width: 1717, height: 620, alt: "Tiasha AI Vista" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiasha AI Vista — AI Automation Solutions",
+    title: "Tiasha AI Vista — AI automation for Indian SMEs",
     description:
       "AI chatbots, WhatsApp automation, voice agents, and custom AI workflows for growing businesses.",
     images: ["/logo.png"],
@@ -64,7 +67,8 @@ const organizationJsonLd = {
   name: "Tiasha AI Vista",
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
-  slogan: "Your Vista to AI-Driven Growth",
+  slogan: "Automate • Innovate • Grow",
+  sameAs: [CONTACT.linkedin, CONTACT.facebook],
   description:
     "AI automation partner building chatbots, AI agents, voice assistants, and business workflow automations for SMEs and enterprises.",
   contactPoint: {
@@ -83,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${manrope.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${montserrat.variable} ${dmSans.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <script
