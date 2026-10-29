@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { ArrowRight, CheckCircle2, Loader2, Mail, MessageCircle, PhoneCall } from "lucide-react";
 import Reveal from "./ui/Reveal";
 import Container from "./ui/Container";
+import { FacebookIcon, InstagramIcon, LinkedinIcon } from "./ui/BrandIcons";
 import { CONTACT, INDUSTRIES } from "@/lib/data";
 import { trackClarityEvent } from "@/lib/clarity";
 
@@ -101,6 +102,26 @@ export default function CTABanner() {
               </a>
             </li>
           </ul>
+          <div className="mt-6 flex items-center gap-3">
+            <span className="text-[14px] text-[#c5d4e6]">Follow us</span>
+            {[
+              { id: "linkedin", label: "LinkedIn", href: CONTACT.linkedin, Icon: LinkedinIcon },
+              { id: "facebook", label: "Facebook", href: CONTACT.facebook, Icon: FacebookIcon },
+              { id: "instagram", label: "Instagram", href: CONTACT.instagram, Icon: InstagramIcon },
+            ].map(({ id, label, href, Icon }) => (
+              <a
+                key={id}
+                href={href}
+                onClick={() => trackClarityEvent(`cta_${id}_click`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Tiasha AI Vista on ${label}`}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-cyan transition-colors hover:border-cyan hover:bg-white/10"
+              >
+                <Icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
           <p className="mt-8 text-[15px] italic text-[#c5d4e6]">
             We read every message ourselves. No bots on this form.
             <span className="mt-1 block text-[14px] not-italic">The Tiasha AI Vista team, {CONTACT.city}</span>
