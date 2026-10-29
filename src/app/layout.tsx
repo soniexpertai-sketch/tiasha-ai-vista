@@ -68,7 +68,7 @@ const organizationJsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   slogan: "Automate • Innovate • Grow",
-  sameAs: [CONTACT.linkedin, CONTACT.facebook],
+  sameAs: [CONTACT.linkedin, CONTACT.facebook, CONTACT.instagram],
   description:
     "AI automation partner building chatbots, AI agents, voice assistants, and business workflow automations for SMEs and enterprises.",
   contactPoint: {

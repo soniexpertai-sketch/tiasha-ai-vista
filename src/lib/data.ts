@@ -7,6 +7,7 @@ export const CONTACT = {
   emailHref: "mailto:info@tiashaaivista.com",
   linkedin: "https://www.linkedin.com/company/145349716/",
   facebook: "https://www.facebook.com/profile.php?id=61591972387391",
+  instagram: "https://www.instagram.com/tiasha_ai_vista",
   city: "Pune, Maharashtra",
 };
 
